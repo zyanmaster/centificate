@@ -1,0 +1,720 @@
+html,body{
+	background: #F6F7F8;
+	/*height: 100%;*/
+}
+.hide{
+	display: none!important;
+}
+.nav-list {
+    height: 1.08rem;
+    font-size: .34rem;
+    font-weight: 400;
+    color: #323337;
+    line-height:1.08rem;
+    display: flex;
+    justify-content: space-around;
+	background: #ffffff;
+}
+.nav-list li.active {
+    font-weight: bold;
+    position: relative;
+}
+
+.nav-list li.active::after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -.18rem;
+    content: '';
+    display: block;
+    width: .36rem;
+    height: .08rem;
+    background: #165DFF;
+    border-radius: .05rem;
+    -webkit-border-radius: .05rem;
+    -moz-border-radius: .05rem;
+    -ms-border-radius: .05rem;
+    -o-border-radius: .05rem;
+}
+.tips{
+	background: #ffffff;
+	height: 0.6rem;
+	font-size: .24rem;
+	font-weight: 400;
+	color: #323337;
+	line-height:0.6rem;
+	padding: 0 .3rem;
+}
+
+.search-box{
+	padding: 0.3rem 0.3rem .12rem;
+	background: #fff;
+}
+.search-box-content{
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	box-sizing: border-box;
+	width: 100%;
+	/*padding: .19rem .17rem;*/
+	overflow: hidden;
+	height: .7rem;
+	background: #F6F7F8;
+	border-radius: .08rem;
+}
+.search-box-content img{
+	width: .32rem;
+	height: .32rem;
+	margin-right: .18rem;
+	margin-top: 0.19rem;
+	margin-left: 0.17rem;
+}
+.search-input{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+}
+.search-input input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    color: rgba(0,0,0,0.5);
+    line-height: inherit;
+    text-align: left;
+    background-color: transparent;
+    border: 0;
+    resize: none;
+	font-size: .3rem;
+	font-weight: 400;
+	height: .7rem;
+	line-height: .7rem;
+}
+
+.competition {
+	background-color: #F7F8F9;
+	box-sizing: border-box;
+	padding: 0.3rem 0.3rem;
+	    overflow-y: auto;
+}
+.competition .competition-item {
+	width: 100%;
+	background: #FFFFFF;
+	border-radius: .2rem;
+	margin: 0 auto;
+	margin-bottom: .22rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	box-sizing: border-box;
+	padding: .3rem .26rem;
+}
+.competition .competition-item h3 {
+	width: 100%;
+	font-size: .34rem;
+	font-weight: 500;
+	color: #000000;
+	line-height: .52rem;
+}
+.competition .competition-item .competition-item-box {
+	background: #F7F8F9;
+	border-radius: .1rem;
+	width: 100%;
+	box-sizing: border-box;
+	padding: .24rem .28rem .4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	margin-top: .27rem;
+}
+
+.competition .competition-item .competition-item-info .competition-item-title {
+	font-size: .26rem;
+	font-weight: 400;
+	font-weight: 400;
+	color: #949597;
+	line-height: .5rem;
+	word-break: keep-all;
+}
+
+.competition .competition-item .competition-item-info .competition-item-label {
+	font-size: .26rem;
+	font-weight: 400;
+	font-weight: 400;
+	color: #323337;
+	line-height: .5rem;
+	word-break: break-all;
+}
+
+.competition .competition-item .competition-item-info .competition-item-tag {
+	min-width: .8rem;
+	height: .4rem;
+	line-height: .4rem;
+	text-align: center;
+	background: rgba(0, 180, 42, 0.18);
+	border-radius: .08rem;
+	font-size: .24rem;
+	font-weight: 400;
+	color: #00B42A;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: .04rem;
+	padding: 0 .12rem;
+}
+
+.competition .competition-item .competition-item-info .competition-item-tag-success {
+	background: rgba(0, 180, 42, 0.18);
+	color: #00B42A;
+}
+
+.competition .competition-item .competition-item-info .competition-item-tag-danger {
+	background: rgba(245, 63, 63, 0.18);
+	color: #F53F3F;
+}
+
+.competition .competition-item .competition-item-info .competition-item-tag-warning {
+	background: rgba(255, 125, 0, 0.18);
+	color: #FF7D00;
+}
+
+.competition .competition-item  .competition-item-btn{
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: .26rem;
+}
+.competition .competition-item  .competition-item-btn p{
+	line-height: .68rem;
+	width: 1.62rem;
+	height: .68rem;
+	border-radius: .34rem;
+	border: 0.01rem solid #979797;
+	color: #000000;
+	font-size: .24rem;
+	font-weight: 400;
+	text-align: center;
+}
+
+
+.competition .competition-item .tag-team {
+	width: .8rem;
+	height: .4rem;
+	background: #165DFF;
+	border-radius: .01rem;
+	font-size: .11rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	line-height: .40rem;
+	text-align: center;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: .02rem;
+	margin-top: -.02rem;
+}
+
+.competition .competition-item .competition-item-operate {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 .14rem 0 .13rem;
+	width: calc(100% - .27rem);
+
+}
+
+.competition .competition-item .competition-item-operate>span {
+	width: 1.59rem;
+	width: 1.98rem;
+	height: .23rem;
+	background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 85, 18, 0.12) 100%);
+	border-radius: .04rem;
+	font-size: .11rem;
+	font-weight: 400;
+	color: #FF5512;
+	line-height: .23rem;
+	display: inline-block;
+	vertical-align: middle;
+
+}
+.competition .competition-item .competition-item-operate .van-icon-clock-o::before {
+	vertical-align: middle;
+	margin: 0rem 0.02rem 0.01rem 0.06rem;
+}
+.competition .competition-item .box_but {
+	align-self: flex-end;
+	width: .81rem;
+	height: .34rem;
+	border-radius: .17rem;
+	border: .01rem solid #979797;
+	font-size: .12rem;
+	font-weight: 400;
+	color: #000000;
+	line-height: .34rem;
+	padding: 0;
+}
+.competition .competition-item .competition-item-info {
+	line-height: .25rem;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.competition .competition-item .competition-item-info .competition-item-price {
+	color: #FF5512;
+}
+
+
+.container-query .search-box{
+	background: #F6F7F8;
+	padding: 0.24rem 0.3rem;
+}
+.container-query .search-box-content{
+	background: #ffffff;
+}
+.container-query .competition {
+    padding: 0rem 0.3rem;
+}
+.container-query .competition .competition-item .competition-time {
+    width: 100%;
+    font-size: .26rem;
+    font-weight: 400;
+    color: rgba(0,0,0,0.5);
+    line-height: .48rem;
+	margin-top: .1rem;
+}
+/*loading*/
+.loading{
+	position: fixed;
+	width: 0.8rem;
+	height: 0.8rem;
+	left: 0;
+	top: 0;
+	right:0;
+	bottom: 0;
+	margin: auto;
+	z-index: 9999;
+	background: transparent;
+	 display: none; 
+}
+.loading img{
+	width: 100%;
+	height: 100%;
+}
+/* 无证书 */
+.query-certificate-no{
+	text-align: center;
+	background: #fff;
+	height: 100vh;
+}
+.query-certificate-no img{
+	width: 50%;
+	padding-top: 2rem;
+}
+.query-certificate-no .query-list-no-title{
+	text-align: center;
+	color:#333333;
+	display: block;
+	margin: 0;
+	font-size: 16px;
+	padding-top: 8px;
+	padding-bottom: 15px;
+}
+.query-certificate-no p{
+	text-align: center;
+	color:#999999;
+	display: block;
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+	color: #999999;
+}
+.query-certificate-no-phone{
+	color: #466BB1;
+}
+
+/* 项目查询内容页 */
+.project-query-content{
+	width: calc( 100% - .6rem );
+	padding: .23rem .3rem;
+	position: relative;
+}
+.competition-content {
+    width: calc( 100% - .6rem );
+    padding: .23rem .3rem;
+    position: relative;
+	border-radius: 0.2rem;
+}
+.project-query-content .competition-content {
+    background: #ffffff;
+}
+.competition-content-in{
+	border-radius: .2rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background: #FFFFFF;
+	padding: .25rem .27rem;
+	box-sizing: border-box;
+}
+.competition-content .competition-content-item{
+    border-bottom: 1px solid #f7f8f9;
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+	position: relative;
+	box-sizing: border-box;
+	padding: .25rem 0;
+}
+.competition-content .competition-content-item .competition-content-title {
+	font-size: .26rem;
+	font-weight: 400;
+	color: #949597;
+	line-height: .48rem;
+}
+.competition-content .competition-content-item .competition-content-label {
+	font-size: .26rem;
+	font-weight: 400;
+	color: #1A1A1A;
+	line-height: .48rem;
+	flex: 1;
+	text-align: right;
+}
+.competition-content .competition-content-item .right {
+	flex: 1;
+	display: flex;
+	align-content: center;
+	justify-content: flex-end;
+    align-items: center;
+}
+.competition-content .competition-content-item .right input{
+	width: 4rem;
+	line-height: .48rem;
+	height: .48rem;
+	font-size: .26rem;
+	font-weight: 400;
+	color: #1A1A1A;
+	text-align: right;
+	margin-right: .2rem;
+}
+.competition-content .competition-content-item .right .phone{
+	width: 4rem;
+	line-height: .48rem;
+	height: .48rem;
+	font-size: .26rem;
+	font-weight: 400;
+	color: #1A1A1A;
+	text-align: right;
+	margin-right: .2rem;
+}
+.competition-content .competition-content-item .right i{
+	width: .15rem;
+	height: .25rem;
+	background: url(../images/right.png) no-repeat center center;
+	background-size: .15rem .25rem;
+}
+
+.form-style{
+	display: block;
+    width: 5.1rem;
+    font-size: 0.28rem;
+    line-height: .5rem;
+    height: .5rem;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: .01rem solid rgba(0, 0, 0, 0.15);
+    border-radius: .05rem;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	margin-left: .1rem;
+}
+.form-style.wd40{
+	/* width: 40%; */
+	width: 2.5rem;
+}
+
+.certificate-login{
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	padding: 0.3rem;
+	left: 0;
+	width: 100%;
+	height: 1.48rem;
+	text-align: center;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	background: #fff;
+}
+.certificate-login a{
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	background: #466BB1;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	width: 100%;
+	display: block;
+}
+.certificate-btn-list{
+	width: 100%;
+	height: 1.48rem;
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 0.3rem;
+	background: #fff;
+	display: none;
+}
+.certificate-exit{
+	position: fixed;
+	bottom: .3rem;
+	left: .3rem;
+	width:3.4rem;
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	background: #466BB1;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	
+}
+.certificate-back{
+	position: fixed;
+	bottom: .3rem;
+	right: .3rem;
+	width: 3.4rem;
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	background: #466BB1;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 500;
+	color: #FFFFFF;
+}
+/* 证书申领与查询内容页  */
+.certificate-application-content{
+	width: 100%;
+	box-sizing: border-box;
+	padding: .24rem .3rem;
+}
+.certificate-application-content .certificate-application-content-info{
+	background: #FFFFFF;
+	border-radius: .2rem;
+}
+.certificate-application-content .certificate-application-content-info img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.certificate-application-content .certificate-application-content-download{
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	background: #466BB1;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	margin-top: .4rem;
+	display: block;
+}
+.certificate-application-content .certificate-application-content-tips{
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	font-size: .3rem;
+}
+
+/* 证书验证 */
+.certificate-query{
+	background-color: #F7F8F9;
+	box-sizing: border-box;
+	padding: 0.3rem 0.3rem;
+}
+.certificate-query-content{
+	width: 100%;
+	background: #FFFFFF;
+	border-radius: .2rem;
+	margin-bottom: .22rem;
+	position: relative;
+	box-sizing: border-box;
+	padding: .3rem .26rem 1rem .26rem;
+}
+.certificate-query-item{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: .1rem;
+}
+.certificate-query .item-label{
+	width: 100%;
+	height: .76rem;
+	font-size: .3rem;
+	font-family: PingFangSC-Semibold, PingFang SC;
+	font-weight: 600;
+	color: #000000;
+	line-height: .76rem;
+}
+.certificate-query input{
+	box-sizing: border-box;
+	width: 100%;
+	height: .76rem;
+	border-radius: .08rem;
+	border: .01rem solid #E3E3E3;
+	font-size: .3rem;
+	color: rgba(0,0,0,0.3);
+	padding: 0 .17rem;
+	font-weight: 400;
+}
+.certificate-query-submit{
+	width: 100%;
+	height: 1.48rem;
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	padding: .3rem;
+	background: #fff;
+}
+.certificate-query-submit a{
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	background: #466BB1;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 600;
+	color: #FFFFFF;
+	display: block;
+}
+
+
+/* 列表无数据 */
+.project-query-no{
+	text-align: center;
+	background: #fff;
+	height: calc( 100vh - 1.18rem ); 
+}
+.zsnolist{
+    height: calc( 100vh - 3.4rem ); 
+}
+.project-query-no img{
+	width: 50%;
+	padding-top: 2rem;
+}
+.project-query-no .project-query-no-title{
+	text-align: center;
+	color:#333333;
+	display: block;
+	margin: 0;
+	font-size: 16px;
+}
+
+/* 绑定手机号 */
+.bind-phone-body{
+	background: #ffffff;
+}
+.bind-phone{
+	background: #ffffff;
+}
+.bind-phone-content {
+    width: calc( 100% - .6rem );
+    padding: .2rem .3rem;
+    position: relative;
+}
+.bind-phone .bind-phone-item{
+    border-bottom: 1px solid #f7f8f9;
+	display: flex;
+	align-content: center;
+	/*justify-content: space-between;*/
+	position: relative;
+	box-sizing: border-box;
+	padding: .34rem 0;
+	height: 1.1rem;
+	font-weight: 400;
+	color: #939393;
+	line-height: .42rem;
+	width: 100%;
+}
+.bind-phone .bind-phone-item .bind-phone-item-title {
+	font-size: .26rem;
+	font-weight: 400;
+	color: #949597;
+	line-height: .42rem;
+	
+}
+.bind-phone .bind-phone-item-icon{
+	width: .4rem;
+	margin-right: .25rem;
+	height: .4rem;
+}
+.bind-phone .bind-phone-item-icon-code{
+	width: .32rem;
+	margin: 0 .29rem 0 .04rem;
+}
+.competition-content .competition-content-item .right {
+	flex: 1;
+	display: flex;
+	align-content: center;
+	justify-content: flex-end;
+    align-items: center;
+}
+.bind-phone .bind-phone-item input{
+    width: 3.5rem;
+	line-height: .42rem;
+	height: .42rem;
+	font-size: .3rem;
+	font-weight: 400;
+	color: #939393;
+	display: inline-block;
+	/*flex: 1;*/
+}
+.bind-phone .bind-phone-item-code{
+	width: 2rem;
+	height: 42px;
+	font-size: .3rem;
+	font-weight: 400;
+	color: #165DFF;
+	line-height: .42rem;
+	height: .42rem;
+	text-align: right;
+}
+.bind-phone .bind-phone-btn{
+	width: 100% ;
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	background: #466BB1;
+	border-radius: .08rem;
+	font-size: .26rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	margin-top: .5rem;
+}
+/*返回顶部*/
+.top {
+	cursor: pointer;
+	width: 0.8rem;
+	height: 0.8rem;	
+	background:url("/images/gotop01.png") no-repeat;  
+	background-size:100% 100%;
+	text-align: center;
+	line-height: 3.5rem;
+	font-size: 1.6rem;
+	position: fixed;
+	right: 0.4rem;
+	bottom: 2.0rem;
+	display: none;
+}

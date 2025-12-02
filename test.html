@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>证书验证</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta name="format-detection" content="telephone=no" />
+		
+		<!-- 引用同级目录下的css -->
+		<link type="text/css" rel="stylesheet" href="reset.css" />
+		<link type="text/css" rel="stylesheet" href="list.css" />
+		
+		<!-- 引用同级目录下的js -->
+		<script src="fontSize.js"></script>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script src="message.min.js"></script>
+		<script type="text/javascript" src="common.js"></script>
+		<!-- 建议注释掉这个动态查询js，以免干扰静态显示 -->
+		<!-- <script src="certificate_query.js"></script> -->
+	</head>
+	<body>
+		<div class="container">
+			<!-- 1. 查询输入框区域 (已隐藏) -->
+			<div class="certificate-query hide">
+				<div class="certificate-query-content">
+					<div class="certificate-query-item">
+						<div class="item-label">学员姓名：</div>
+						<input type="text" value="" id="name" name="name" placeholder="请输入姓名">
+					</div>
+					<div class="certificate-query-item">
+						<div class="item-label">证书编号：</div>
+						<input type="text" value="" id="certificate" name="certificate" placeholder="请输入证书编号">
+					</div>
+				</div>
+			</div>
+
+			<!-- 2. 查询结果区域 (已显示，请修改下方的具体文字) -->
+			<div class="competition-content">
+				<div class="competition-content-in">
+					<div class="competition-content-item">
+						<span class="competition-content-title">项目名称</span>
+						<!-- 修改下方文字 -->
+						<span class="competition-content-label" id="Title">高级管理培训项目</span>
+					</div>
+					<div class="competition-content-item">
+						<span class="competition-content-title">学员姓名</span>
+						<!-- 修改下方文字 -->
+						<span class="competition-content-label" id="certificate-name">张三</span>
+					</div>
+					<div class="competition-content-item">
+						<span class="competition-content-title">证书编号</span>
+						<!-- 修改下方文字 -->
+						<span class="competition-content-label" id="certificateID">202312020001</span>
+					</div>
+					<div class="competition-content-item">
+						<span class="competition-content-title">项目编号</span>
+						<!-- 修改下方文字 -->
+						<span class="competition-content-label" id="Projectno">XM-2023-888</span>
+					</div>
+					<div class="competition-content-item">
+						<span class="competition-content-title">颁发时间</span>
+						<!-- 修改下方文字 -->
+						<span class="competition-content-label" id="time">2023-12-02</span>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 无证书提示 (已隐藏) -->
+			<div class="query-certificate-no hide">
+				<img src="certificate-no.png">
+				<div class="query-list-no-title">没有查询到该证书的信息</div>
+				<p>请您仔细核对录入的信息是否准确</p>
+				<p>如有疑问请致电：<span class="query-certificate-no-phone">010-84130490</span></p>
+			</div>
+			
+			<!-- 3. “查询”按钮 (已隐藏) -->
+			<div class="certificate-query-submit certificate-query-submit-check hide">
+				<a href="javascript:;">查询</a>
+			</div>
+
+			<!-- 4. “关闭”按钮 (已隐藏) -->
+			<!-- 这里加上了 hide 类，按钮就不会显示了 -->
+			<div class="certificate-query-submit certificate-query-close hide">
+				<a href="javascript:;">关闭</a>
+			</div>
+		
+		</div>
+		
+		<div class="loading">
+    		<div class="imgbox">
+    			<img src="video_loading.gif">
+    		</div>
+    	</div>
+		<div class="top">
+			<span class=""></span>
+		</div>
+		<!--公共弹窗-->
+		<div id="commonpop">
+			<p class="tips-container"><span></span></p>
+		</div>
+	</body>
+</html>
