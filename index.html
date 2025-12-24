@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Merry Christmas My Love 🎄</title>
+    <style>
+        /* --- 样式部分 (保持你喜欢的第一版风格) --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+            font-family: 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        canvas#fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200; /* <--- 关键修改：提到最前面！ */
+            pointer-events: none; /* 关键：这句必须保留，否则点不动按钮 */
+        }
+
+        .snowflake {
+            position: absolute; top: -10px; color: #fff; font-size: 1em;
+            animation: fall linear infinite; z-index: 1;
+        }
+        @keyframes fall { to { transform: translateY(105vh); } }
+
+        #game-container { text-align: center; z-index: 10; position: relative; }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #00ff00;
+            margin-bottom: 30px;
+        }
+
+        .gift-box-container {
+            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+        }
+
+        .gift-box {
+            width: 80px; height: 80px; background-color: #d63031;
+            border-radius: 10px; position: relative; cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 40px; z-index: 20;
+        }
+
+        .gift-box::before { content: ''; position: absolute; width: 100%; height: 15px; background-color: #fdcb6e; top: 50%; transform: translateY(-50%); }
+        .gift-box::after { content: ''; position: absolute; height: 100%; width: 15px; background-color: #fdcb6e; left: 50%; transform: translateX(-50%); }
+
+        .gift-box:hover { transform: scale(1.1) rotate(5deg); }
+        .gift-box.opened { background-color: #636e72; cursor: default; opacity: 0.5; pointer-events: none; }
+
+        /* 弹窗样式 */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 100;
+            justify-content: center; align-items: center; flex-direction: column;
+            animation: fadeIn 0.5s;
+        }
+
+        /* 图片样式 */
+        .modal img {
+            max-width: 90%; max-height: 60vh;
+            border: 5px solid white; border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            display: none; /* 默认隐藏，JS控制显示 */
+        }
+        
+        /* 视频样式 (新增) */
+        .modal video {
+            max-width: 90%; max-height: 60vh;
+            border: 5px solid white; border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            display: none; /* 默认隐藏，JS控制显示 */
+        }
+
+        .modal p {
+            font-size: 1.4rem; margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px; border-radius: 20px;
+            min-height: 1.5em; /* 防止文字切换时跳动 */
+            transition: opacity 0.3s;
+        }
+
+        .skip-btn {
+            margin-top: 20px; padding: 8px 20px;
+            background-color: transparent; border: 1px solid #7f8c8d;
+            color: #bdc3c7; border-radius: 20px; cursor: pointer; font-size: 0.9rem;
+        }
+
+        /* 最终信件 */
+        #final-letter-modal { display: none; }
+        #final-letter {
+            background: white; color: #333; padding: 40px;
+            border-radius: 10px; max-width: 80%; width: 500px;
+            text-align: left; position: relative; line-height: 1.8;
+            font-size: 1.1rem; box-shadow: 0 0 30px #fdcb6e;
+        }
+        #final-letter h2 { color: #d63031; margin-top: 0; }
+        .close-btn { 
+            margin-top: 20px; padding: 10px 30px; background-color: #d63031;
+            color: white; border: none; border-radius: 20px; cursor: pointer;
+        }
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            z-index: 200;
+            font-size: 20px;
+            border: 1px solid rgba(255,255,255,0.5);
+            animation: rotateMusic 4s linear infinite;
+            /* 默认暂停动画，播放时才转 */
+            animation-play-state: paused; 
+        }
+
+        @keyframes rotateMusic {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- 背景音乐 (记得把 src 改成你的音乐文件名) -->
+    <audio id="bgm" src="music.flac" loop preload="auto"></audio>
+
+    <!-- 音乐开关按钮 (右上角) -->
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+    <canvas id="fireworks"></canvas>
+    <div id="snow-container"></div>
+
+    <div id="game-container">
+        <h1>🎄 亲爱的，平安夜快乐 🎄</h1>
+        <p>每一份礼物里，都藏着一段我们的故事...</p>
+        <div class="gift-box-container">
+            <div class="gift-box" onclick="playMemory(1)">🎁</div>
+            <div class="gift-box" onclick="playMemory(2)">🎁</div>
+            <div class="gift-box" onclick="playMemory(3)">🎁</div>
+            <div class="gift-box" onclick="playMemory(4)">🎁</div>
+            <div class="gift-box" onclick="playMemory(5)">🎁</div>
+            <div class="gift-box" onclick="playMemory(6)">🎁</div>
+        </div>
+    </div>
+
+    <!-- 播放弹窗 -->
+    <div id="media-modal" class="modal">
+        <img id="modal-img" src="" alt="">
+        <video id="modal-video" src="" controls></video>
+        <p id="modal-text"></p>
+        <!-- 右上角倒计时或跳过按钮 -->
+        <button class="skip-btn" onclick="forceStop()">跳过当前故事</button>
+    </div>
+
+    <!-- 最终信件 -->
+    <div id="final-letter-modal" class="modal">
+        <div id="final-letter">
+            <h2>To 我的女孩：</h2>
+            <p>
+                恭喜你集齐了所有的回忆碎片！<br><br>
+                今天我们在一起半年啦！也是平安夜！<br>
+                刚才看到的那些画面，是我这辈子最最最最最珍贵的宝藏！<br>
+                不管是照片里的瞬间，还是视频里的笑声，我都想和你一起延续下去，永远永远~<br><br>
+                <strong>我爱你！宝宝！圣诞快乐！！！！🍎</strong>
+            </p>
+            <div style="text-align: center; margin-top:20px;">
+                <button class="close-btn" onclick="location.reload()">再玩一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. 核心配置区：请在这里修改你的内容 ---
+        // 注意格式：每个礼物ID对应一个数组 []，数组里包含多个对象 {}
+        // type: 'image' (图片) 或 'video' (视频)
+        // src: 文件链接
+        // text: 对应显示的文字
+        // duration: 图片显示的毫秒数 (视频不需要填，会自动等视频播完)
+        
+        const memories = {
+            1: [
+                { type: 'image', src: './img/打麻将.jpg', text: '那是我们第一次见面的麻将馆...', duration: 3000 },
+                { type: 'image', src: './img/电影.png', text: '约会看电影，你一直靠着我，第一次被人靠着感觉好幸福啊', duration: 4000 },
+                // 如果你有视频，解除下面注释并填入链接
+                // { type: 'video', src: '你的视频链接.mp4', text: '这里放了一段我们的小视频~' },
+                { type: 'image', src: './img/第一次做.JPG', text: '从此，我的世界多了一个你，那天我们交织在了一起。。。', duration: 3000 }
+            ],
+            2: [
+                { type: 'image', src: './img/第一次住.JPG', text: '第一次去锡上mono！感觉你好开心！那天过得很幸福。还记得当晚我对花粉过敏的故事吗哈哈哈', duration: 3000 },
+            ],
+            3: [
+                { type: 'video', src: './img/海边.mp4', text: '还记得海边的故事吗？听着海浪声感觉特安心呢。' },
+            ],
+            4: [
+                { type: 'image', src: './img/同居1.JPG', text: '开启了没羞没臊的同居生活。。。', duration: 3000 },
+                { type: 'image', src: './img/同居2.JPG', text: '某一天清晨。。阳光撒进房间。。还有熟睡的你。。。', duration: 3000 },
+            ],
+            5: [
+                { type: 'image', src: './img/1.jpg', text: '来南京啦', duration: 2500 },
+                { type: 'image', src: './img/2.jpg', text: '这里有很多我们的回忆！', duration: 2500 },
+                { type: 'image', src: './img/3.jpg', text: '谢谢宝宝！每周都留下了自拍。。。', duration: 2500 },
+                { type: 'image', src: './img/4.jpg', text: '。。。', duration: 2500 },
+                { type: 'image', src: './img/5.jpg', text: '。。。', duration: 2500 },
+                { type: 'image', src: './img/6.jpg', text: '简直就是大小姐！', duration: 2500 },
+                { type: 'image', src: './img/7.jpg', text: '好可爱好可爱好可爱！！！！！', duration: 2500 },
+                { type: 'image', src: './img/8.jpg', text: '第一次吃云南菜呀，路上的修狗也很好玩', duration: 2500 },
+                { type: 'image', src: './img/9.jpg', text: '呜呜呜这天就来了一天，但是过得很充实！', duration: 2500 },
+                { type: 'image', src: './img/10.jpg', text: '我们去了植物园！！！我看起来咋这么虚！！！', duration: 2500 },
+                { type: 'image', src: './img/11.jpg', text: '宝宝的生日！！！窝爱泥！！！！', duration: 2500 },
+                { type: 'image', src: './img/12.jpg', text: '最后一天，马上就要上高铁了，好难过呀😭', duration: 2500 },
+                { type: 'image', src: './img/13.jpg', text: '来无锡支持宝宝', duration: 2500 },
+                { type: 'image', src: './img/14.jpg', text: '又来了一次哈哈哈，第一次尝试那个😁', duration: 2500 },
+                { type: 'image', src: './img/15.jpg', text: '快到结尾啦，爱你爱你爱你！', duration: 2500 },
+            ],
+            6: [
+                { type: 'video', src: './img/生日.mp4', text: '生日快乐！！！！！我们要永远在一起！！！' },
+            ]
+        };
+
+        // --- 2. 播放逻辑 ---
+        let currentGiftId = 0;
+        let slideIndex = 0;
+        let slideTimer = null;
+        let openedCount = 0;
+        const totalGifts = 5;
+
+        function playMemory(id) {
+            const box = document.querySelectorAll('.gift-box')[id-1];
+            if (box.classList.contains('opened')) return;
+
+            if (bgm.paused && !isMusicPlaying) {
+                toggleMusic();
+            }
+
+            currentGiftId = id;
+            slideIndex = 0;
+            
+            // 显示弹窗
+            document.getElementById('media-modal').style.display = 'flex';
+            
+            // 标记盒子
+            box.classList.add('opened');
+            box.innerHTML = '✨'; 
+
+            // 开始播放第一个片段
+            showSlide();
+        }
+
+        function showSlide() {
+            const list = memories[currentGiftId];
+            
+            // 如果播完了
+            if (slideIndex >= list.length) {
+                closeModal();
+                return;
+            }
+
+            const item = list[slideIndex];
+            const imgEl = document.getElementById('modal-img');
+            const videoEl = document.getElementById('modal-video');
+            const textEl = document.getElementById('modal-text');
+
+            // 更新文字
+            textEl.style.opacity = 0;
+            setTimeout(() => {
+                textEl.innerText = item.text;
+                textEl.style.opacity = 1;
+            }, 300);
+
+            // 根据类型显示内容
+            if (item.type === 'image') {
+                videoEl.style.display = 'none';
+                videoEl.pause();
+
+                // 【关键逻辑】如果是图片，且之前开启了BGM，则恢复播放BGM
+                if (isMusicPlaying && bgm.paused) {
+                    bgm.play();
+                }
+                
+                imgEl.src = item.src;
+                imgEl.style.display = 'block';
+
+                // 设置定时器切换下一张
+                slideTimer = setTimeout(() => {
+                    slideIndex++;
+                    showSlide();
+                }, item.duration || 3000);
+
+            } else if (item.type === 'video') {
+                imgEl.style.display = 'none';
+
+                // 【关键逻辑】如果是视频，暂停背景音乐
+                bgm.pause();
+                
+                videoEl.src = item.src;
+                videoEl.style.display = 'block';
+                videoEl.play();
+
+                // 监听视频播放结束事件
+                videoEl.onended = () => {
+                    slideIndex++;
+                    showSlide();
+                };
+            }
+        }
+
+        function forceStop() {
+            if (slideTimer) clearTimeout(slideTimer);
+            const videoEl = document.getElementById('modal-video');
+            videoEl.pause();
+            closeModal();
+        }
+
+        function closeModal() {
+            
+            document.getElementById('media-modal').style.display = 'none';
+            if (slideTimer) clearTimeout(slideTimer);
+            if (isMusicPlaying) {
+                bgm.play();
+            }
+            // 检查是否全部打开
+            if (openedCount === totalGifts) {
+                setTimeout(showFinalLetter, 500);
+            }
+            openedCount++;
+        }
+
+        function showFinalLetter() {
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('final-letter-modal').style.display = 'flex';
+            startFireworks();
+        }
+
+        // --- 3. 视觉特效 (雪花+烟花) ---
+        function createSnow() {
+            const container = document.body;
+            for (let i = 0; i < 50; i++) {
+                const snow = document.createElement('div');
+                snow.className = 'snowflake';
+                snow.innerHTML = '❄';
+                snow.style.left = Math.random() * 100 + 'vw';
+                snow.style.animationDuration = Math.random() * 3 + 2 + 's';
+                snow.style.opacity = Math.random();
+                snow.style.fontSize = Math.random() * 20 + 10 + 'px';
+                container.appendChild(snow);
+            }
+        }
+
+        let canvas, ctx, particles = [];
+        function startFireworks() {
+            canvas = document.getElementById('fireworks');
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            loop();
+            setInterval(() => {
+                createFirework(Math.random() * canvas.width, Math.random() * canvas.height * 0.6 + canvas.height * 0.1);
+            }, 800);
+            createFirework(canvas.width / 2, canvas.height / 3);
+        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        function createFirework(x, y) {
+            // 数量从 80 改为 150，更密集
+            const particleCount = 150; 
+            const colors = ['#ff7675', '#fab1a0', '#ffeaa7', '#55efc4', '#74b9ff', '#ff0000', '#ffff00'];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                // 爆炸范围变大 (原来是 6+2 -> 改为 10+2)
+                const velocity = Math.random() * 10 + 2; 
+                const angle = Math.random() * Math.PI * 2;
+                this.dx = Math.cos(angle) * velocity;
+                this.dy = Math.sin(angle) * velocity;
+                this.alpha = 1;
+                // 消失速度变慢 (原来是 0.02 -> 改为 0.01)，烟花停留更久
+                this.decay = 0.01; 
+                this.gravity = 0.05;
+            }
+            draw() {
+                ctx.save();
+                
+                // 【修复代码】加一个判断：如果透明度小于0，就强制设为0，防止回光返照
+                let safeAlpha = this.alpha;
+                if (safeAlpha < 0) safeAlpha = 0;
+                ctx.globalAlpha = safeAlpha;
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+                this.dy += this.gravity;
+                this.alpha -= this.decay;
+                // 阻力减小，炸得更开
+                this.dx *= 0.96; 
+                this.dy *= 0.96;
+            }
+        }
+        function loop() {
+            requestAnimationFrame(loop); ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => { if (p.alpha > 0) { p.update(); p.draw(); } else particles.splice(i, 1); });
+        }
+
+        // --- 新增：音乐控制逻辑 ---
+        const bgm = document.getElementById('bgm');
+        const musicBtn = document.getElementById('music-control');
+        let isMusicPlaying = false;
+
+        function toggleMusic() {
+            if (bgm.paused) {
+                bgm.play();
+                isMusicPlaying = true;
+                musicBtn.style.animationPlayState = 'running'; // 开始旋转
+                musicBtn.style.opacity = 1;
+            } else {
+                bgm.pause();
+                isMusicPlaying = false;
+                musicBtn.style.animationPlayState = 'paused'; // 停止旋转
+                musicBtn.style.opacity = 0.5;
+            }
+        }
+
+        window.onload = createSnow;
+    </script>
+</body>
+</html>
